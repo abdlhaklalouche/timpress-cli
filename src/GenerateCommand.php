@@ -55,7 +55,7 @@ class GenerateCommand extends Command
 		$this->informations['theme-license'] = $helper->ask($input, $output, $question);
 		
         $output->writeln('<info>Downloading theme..</info>');
-        //Download here
+        $this->download();
         
         $output->writeln('<info>Extracting theme files..</info>');
 		// Extract here
@@ -71,5 +71,21 @@ class GenerateCommand extends Command
 
         $output->writeln('<comment>Your theme is ready in (' . $directory . ')</comment>');
         $output->writeln('<fg=black;bg=green;options=bold>Happy developing :)</>');
+    }
+
+    /**
+     * Downloading the Timpress theme from github repository from the master barnch.
+     * 
+     * @return string
+     */
+    private function download()
+    {
+        $zipfile = getcwd().'/timpress_' . uniqid() . '.zip';
+        
+        file_put_contents($zipfile, 
+            file_get_contents($this->TIMPRESS_REPOPSITORY_URI)
+        );
+
+        return $zipfile;
     }
 }
