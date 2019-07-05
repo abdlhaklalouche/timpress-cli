@@ -1,6 +1,14 @@
 #! /usr/bin/env php
 
 <?php
+/**
+ * Generate a new Timpress theme
+ *
+ * @package  timpress-cli
+ * @author   Abdelhak Lallouche <abdlhaklalouche@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-3.0 GNU General Public License, version 3 (GPLv3)
+ * @link     https://github.com/abdlhaklalouche/timpress-cli
+ */
 
 if (file_exists(__DIR__.'/vendor/autoload.php'))
     require_once __DIR__.'/vendor/autoload.php';
