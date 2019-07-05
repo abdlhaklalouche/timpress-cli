@@ -17,5 +17,8 @@
     },
     "bin": [
         "timpress"
-    ]
+    ],
+    "require": {
+        "symfony/console": "^4.3"
+    }
 }
