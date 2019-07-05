@@ -49,6 +49,9 @@ class GenerateCommand extends Command
         
         $question = new Question("Author URI [<info>Author website URL</info>]: ", null);
 		$this->informations['theme-author-uri'] = $helper->ask($input, $output, $question);
+	    
+	 $question = new Question("Author email [<info>Author email</info>]: ", null);
+		$this->informations['theme-author-email'] = $helper->ask($input, $output, $question);
         
         $question = new Question("Version [<info>1.0.0</info>]: ", null);
 		$this->informations['theme-version'] = $helper->ask($input, $output, $question);
@@ -161,13 +164,15 @@ class GenerateCommand extends Command
             
             if (!is_null($this->informations['theme-author'])) {
                 $str = str_replace("Abdelhak Lallouche", $this->informations['theme-author'], $str);
-                $str = str_replace("abdlhaklalouche", $this->informations['theme-author'], $str);
 			}
             
             if (!is_null($this->informations['theme-author-uri'])) {
-                $str = str_replace("abdlhaklalouche@gmail.com", $this->informations['theme-author-uri'], $str);
-                $str = str_replace("abdlhaklalouche@gmail.com", $this->informations['theme-author-uri'], $str);
-			}
+                $str = str_replace("https://abdlhaklalouche.com/", $this->informations['theme-author-uri'], $str);
+	    }
+		
+	    if (!is_null($this->informations['theme-author-uri'])) {
+                $str = str_replace("abdlhaklalouche@gmail.com", $this->informations['theme-author-email'], $str);
+	    }
             
             if (!is_null($this->informations['theme-version'])) {
                 $str = str_replace("1.0.0", $this->informations['theme-version'], $str);
