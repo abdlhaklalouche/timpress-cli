@@ -16,6 +16,6 @@ if (file_exists(__DIR__.'/vendor/autoload.php'))
 use TimpressCLI\GenerateCommand;
 use Symfony\Component\Console\Application;
 
-$application = new Application();
+$application = new Application('Timpress CLI', '1.0.0');
 $application->add(new GenerateCommand());
 $application->run();
