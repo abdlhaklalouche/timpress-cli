@@ -1,0 +1,21 @@
+{
+    "name": "abdlhaklalouche/timpress-cli",
+    "description": "A Command line application to make a new Timpress theme.",
+    "keywords": ["timpress", "wordpress", "starter theme", "generator"],
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Abdelhak Lallouche",
+            "email": "abdlhaklalouche@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "TimpressCLI\\": "src"
+        }
+    },
+    "bin": [
+        "timpress"
+    ]
+}
