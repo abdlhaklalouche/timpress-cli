@@ -2,6 +2,8 @@
 
 namespace TimpressCLI;
 
+use ZipArchive;
+
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -55,13 +57,15 @@ class GenerateCommand extends Command
 		$this->informations['theme-license'] = $helper->ask($input, $output, $question);
 		
         $output->writeln('<info>Downloading theme..</info>');
-        $this->download();
+        $zipfile = $this->download();
         
         $output->writeln('<info>Extracting theme files..</info>');
-		// Extract here
+		$this->extract($zipfile, $directory, $output);
+        
+        $output->writeln('<info>Cleaning up..</info>');
+        $this->cleanUp($zipfile);
         
         $output->writeln('<info>Intializing theme files..</info>');
-        // Rename here
                         
 		$output->writeln('<info>Installing composer dependencies..</info>');
         shell_exec("cd ".$directory." && composer install");
@@ -88,4 +92,40 @@ class GenerateCommand extends Command
 
         return $zipfile;
     }
+
+	/**
+	 * Extract the downloaded zip file
+	 *
+	 * @param string $zipfile
+	 * @param string $directory
+	 * @param OutputInterface $output
+	 * @return void
+	 */
+	private function extract($zipfile, $directory, OutputInterface $output)
+	{
+		$archive = new ZipArchive();
+		$archive->open($zipfile);
+		$archive->extractTo($directory);
+        $archive->close();
+        
+		if (!empty(shell_exec("mv " . $directory . "/timpress-master/* " . $directory . "/timpress-master/.[!.]*  " . $directory))) {
+			$output->writeln('<error>Cannot move files from timpress-master folder</error>');
+			return $this;
+		}
+        
+        @rmdir($directory . "/timpress-master");
+        
+        return $this;
+    }
+    
+    /**
+     * Remove the downloade zip file
+     * 
+     * @return void
+     */
+    private function cleanUp($zipfile)
+	{
+		@chmod($zipfile, 0777);
+		@unlink($zipfile);
+	}
 }
