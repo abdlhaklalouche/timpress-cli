@@ -74,8 +74,9 @@ class GenerateCommand extends Command
 	$output->writeln('<info>Installing composer dependencies..</info>');
         shell_exec("cd ".$directory." && composer install");
         
-	$output->writeln('<info>Installing npm dependencies..</info>');
-	shell_exec("cd ".$directory." && npm install");
+	$output->writeln('<info>Installing & compiling npm dependencies..</info>');
+    shell_exec("cd ".$directory." && npm install");
+    shell_exec("cd ".$directory." && npm run dev");
 
         $output->writeln('<comment>Your theme is ready in (' . $directory . ')</comment>');
         $output->writeln('<fg=black;bg=green;options=bold>Happy developing :)</>');
